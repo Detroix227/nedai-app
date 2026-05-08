@@ -8,6 +8,7 @@ import {
   MoreVertical,
   Plus,
   User,
+  Settings,
 } from "lucide-react-native";
 import React, { useEffect } from "react";
 import {
@@ -57,10 +58,17 @@ const STUDY_TOOLS = [
   },
   {
     key: "profile",
-    label: "Profile & Settings",
+    label: "Profile",
     href: "/(app)/profile" as Href,
     icon: User,
     segment: "profile",
+  },
+  {
+    key: "settings",
+    label: "Settings",
+    href: "/(app)/settings" as Href,
+    icon: Settings,
+    segment: "settings",
   },
 ] as const;
 

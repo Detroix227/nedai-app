@@ -13,7 +13,6 @@ import {
 } from "react-native";
 import { ArrowUp, FileText, Plus, X } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Circle, Svg } from "react-native-svg";
 
 import type { DocumentSummary } from "@/modules/contracts";
 
@@ -34,7 +33,6 @@ type Props = {
   documentSuggestions?: DocumentSummary[];
   documentSuggestionStatus?: DocumentSuggestionStatus;
   onSelectDocument?: (document: DocumentSummary) => void;
-  contextUsage?: number;
   containerStyle?: StyleProp<ViewStyle>;
 };
 
@@ -76,7 +74,6 @@ export function ChatInput({
   documentSuggestions = [],
   documentSuggestionStatus = "idle",
   onSelectDocument,
-  contextUsage = 0,
   containerStyle,
 }: Props) {
   const hasSendableText = value.trim().length > 0 && !disabled;
@@ -222,7 +219,6 @@ export function ChatInput({
             editable={!disabled}
           />
 
-            <ContextUsageIndicator usage={contextUsage} />
             <TouchableOpacity
               activeOpacity={0.7}
               style={[
@@ -242,47 +238,7 @@ export function ChatInput({
   );
 }
 
-const ContextUsageIndicator = ({ usage }: { usage: number }) => {
-  const size = 32;
-  const strokeWidth = 3;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (usage / 100) * circumference;
 
-  let color = "#10B981"; // Green
-  if (usage > 80) color = "#EF4444"; // Red
-  else if (usage > 50) color = "#F59E0B"; // Amber
-
-  return (
-    <View style={styles.indicatorContainer}>
-      <Svg width={size} height={size}>
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="#E2E8F0"
-          strokeWidth={strokeWidth}
-          fill="none"
-        />
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          fill="none"
-          transform={`rotate(-90 ${size / 2} ${size / 2})`}
-        />
-      </Svg>
-      <View style={styles.indicatorTextContainer}>
-        <Text style={[styles.indicatorText, { color }]}>{usage}</Text>
-      </View>
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -446,22 +402,6 @@ const styles = StyleSheet.create({
   actionButtonContainer: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  indicatorContainer: {
-    width: 32,
-    height: 32,
-    marginRight: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  indicatorTextContainer: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  indicatorText: {
-    fontSize: 9,
-    fontWeight: "700",
   },
   inputWrapper: {
     flex: 1,

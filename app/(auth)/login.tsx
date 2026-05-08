@@ -118,6 +118,13 @@ export default function LoginScreen() {
                     <Text className="text-sm font-semibold text-slate-700">
                       Password
                     </Text>
+                    <Link href="/(auth)/forgot-password" asChild>
+                      <TouchableOpacity activeOpacity={0.7}>
+                        <Text className="text-sm font-semibold text-blue-600">
+                          Forgot password?
+                        </Text>
+                      </TouchableOpacity>
+                    </Link>
                   </View>
                   <View className="h-14 flex-row items-center rounded-xl border border-slate-200 bg-slate-50 px-4">
                     <Ionicons
